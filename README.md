@@ -1,12 +1,14 @@
 # code setup
-Download the code from the github repo - https://github.com/aeryavinav/LKCTC_Faculty_Project.git
+Download the code from the github repo - https://github.com/aeryavinav/facultyProject.git
 
 # setting up enviorment
-Put folder in htdocs in C:/xampp folder
+Put folder in htdocs 
+name the folder to "facultyProject"
+(Path setup - C:/xampp/facultyProject)
 
 # setting up
 open xampp and start apache server and mySql
 
 # start project
 After setting up whole thing run index.php 
-"http://localhost/facultyProject/"
+(Default Url  - "http://localhost/facultyProject/")
