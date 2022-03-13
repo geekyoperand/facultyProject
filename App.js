@@ -1,5 +1,7 @@
 class App extends React.Component {
   render() {
-    return <Router />
+    if (localStorage.getItem('email'))
+      return <LoginSignupForm />
+    else return <Router />
   }
 }
