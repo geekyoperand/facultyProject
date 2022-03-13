@@ -28,7 +28,7 @@ class Login extends React.Component {
     return (
       <div className="card-front">
         <div className="card-header">
-          <h2>LOGIN</h2>
+          <h2>Log In</h2>
           <img src="" />
         </div>
         <div className="card-content">

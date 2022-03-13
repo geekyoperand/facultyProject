@@ -30,7 +30,7 @@ class Signup extends React.Component {
     return (
       <div className="card-back">
         <div className="card-header">
-          <h2>REGISTER</h2>
+          <h2>Sign Up</h2>
         </div>
         <div className="card-content">
           <Form
