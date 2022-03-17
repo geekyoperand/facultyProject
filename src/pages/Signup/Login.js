@@ -4,9 +4,9 @@ class Login extends React.Component {
     const { Button, Input, Form } = antd;
 
     const onFinish = async (formData, method) => {
-      const url = "./api/services.php";
+      const url = "./api/loginService.php";
       const response = await axios({
-        method: 'put',
+        method: 'post',
         url,
         data: formData,
         config: { headers: { 'Content-Type': 'application/json' } }

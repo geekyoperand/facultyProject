@@ -1,14 +1,5 @@
 <?php
-
-$host = "localhost";
-$user = "root";
-$password = "";
-$dbname = "demo";
-
-$mysqli = new mysqli($host, $user, $password, $dbname);
-if ($mysqli->connect_errno) {
-  header("Location: http://localhost/facultyProject/createDb.php");
-}
+require_once "/xampp/htdocs/facultyProject/utils/connection.php";
 ?>
 
 <!DOCTYPE html>

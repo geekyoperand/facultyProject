@@ -5,7 +5,7 @@ class Signup extends React.Component {
     const onFinish = async (formData, method) => {
       if (formData['confirm-password'] !== formData.password)
         return Toast({ text: "Password doesn't match!", error: true })
-      const url = "./api/services.php";
+      const url = "./api/signinService.php";
       const response = await axios({
         method: 'post',
         url,
