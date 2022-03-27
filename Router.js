@@ -1,4 +1,4 @@
-class App extends React.Component {
+class Router extends React.Component {
   state = {
     isValidUser: false,
     loading: true,
