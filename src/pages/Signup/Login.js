@@ -1,24 +1,27 @@
 class Login extends React.Component {
-  formRef = React.createRef();
+  formRef = React.createRef()
   render() {
-    const { Button, Input, Form } = antd;
+    const { Button, Input, Form } = antd
 
     const onFinish = async (formData, method) => {
-      const url = "./api/loginService.php";
+      const url = "./api/loginService.php"
       const response = await axios({
         method: 'post',
         url,
         data: formData,
         config: { headers: { 'Content-Type': 'application/json' } }
       })
-      let result = JSON.parse(response && response.data)
+      let result = response && response.data
       if (result && result.status === 200) {
         Toast({ text: "Login successful" })
+        localStorage.clear();
+        localStorage.setItem('token', result.token)
+        location.replace("http://localhost/facultyProject/");
         restFeilds()
       }
       else
         Toast({ text: result.error, error: true })
-    }
+      }
     const onFinishFailed = ({ errorFields }) => {
       errorFields.forEach(err => Toast({ text: err.errors, error: true }))
     }

@@ -12,9 +12,12 @@ class Signup extends React.Component {
         data: formData,
         config: { headers: { 'Content-Type': 'application/json' } }
       })
-      let result = JSON.parse(response && response.data)
+      let result = response && response.data
       if (result && result.status === 200) {
         Toast({ text: "Signup successful" })
+        localStorage.clear();
+        localStorage.setItem('token', result.token)
+        location.replace("http://localhost/facultyProject/");
         restFeilds()
       }
       else

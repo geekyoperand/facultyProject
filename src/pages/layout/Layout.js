@@ -1,10 +1,13 @@
 class Layout extends React.Component {
   state = {
     collapsed: false,
+    loading: true,
   }
+
   render() {
     const { collapsed } = this.state;
-    const { Layout, Menu, Input } = antd
+    const { userData } = this.props;
+    const { Layout, Menu, Input, Popconfirm, Button } = antd
     const { Search } = Input;
     const { Header, Content, Sider } = Layout;
     // const { SubMenu } = Menu;
@@ -37,6 +40,9 @@ class Layout extends React.Component {
             </div>
             <div style={{ display: 'flex' }}>
               <Search placeholder="Search in app..." style={{ width: 200 }} />
+              <Popconfirm placement="topLeft" title={'Are your sure you want to logout'} onConfirm={() => { localStorage.removeItem('token'); location.replace("http://localhost/facultyProject/"); }} okText="Yes" cancelText="No">
+                <Button style={{ marginLeft: 20, textAlign: 'center' }} type="primary">Logout</Button>
+              </Popconfirm>
             </div>
             {/* <div style={{ background: 'white', border: '2px solid #00000015', minWidth: 250, width: '25%', height: 30, padding: 5, borderRadius: 50, display: 'flex', alignItems: 'center' }}>
               <i style={{ color: 'grey' }} class="material-icons">&#xe880;</i>
@@ -46,10 +52,10 @@ class Layout extends React.Component {
         </Header>
         <Layout className="site-layout">
           <Sider trigger={null} collapsed={collapsed} onCollapse={onCollapse} style={{ boxShadow: '-7px 0px 20px 0px rgb(0 0 0 / 33%)', zIndex: 9 }}>
-            <div style={{ width: '100%', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>
+            <div style={{ width: '100%', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13 }}>
               {/* <img src={userDetails.gender === "male" ? '../../assets/icons/femaleProfile.png' : '../../assets/icons/femaleProfile.png'} alt="profile_img" /> */}
               <i class="material-icons">&#xe853;</i>
-              {!collapsed && (<span>{userDetails.name}</span>)}
+              {!collapsed && (<span>{userData.name}</span>)}
             </div>
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
               <Menu.Item key="1" style={{ color: 'black' }}>

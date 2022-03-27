@@ -1,7 +1,9 @@
-class App extends React.Component {
+class Router extends React.Component {
   render() {
-    if (!localStorage.getItem('email'))
-      return <LoginSignupForm />
-    else return <Router />
+    return (
+      <React.Fragment>
+        <Router />
+      </React.Fragment>
+    )
   }
 }

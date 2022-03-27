@@ -14,16 +14,12 @@ switch ($method) {
     $email = $data->useremail;
     $password = $data->userpassword;
     if (!preg_match("/^[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}$/", $email) || !preg_match("/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,16}$/", $password)) {
-      $json = '{
-        "success": false,
-        "status": 400,
-        "error": "Please enter valid details!"
-      }';
+      $json = ["success" => false, "status" => 400, "error" => "Please enter valid details!"];
       echo json_encode($json);
       $conn->close();
       exit();
     }
-    $sql = "SELECT `password` FROM faculty WHERE email='$email'";
+    $sql = "SELECT * FROM faculty WHERE email='$email'";
     break;
 }
 
@@ -36,22 +32,21 @@ if (!$result) {
 } else {
   if ($method == 'POST') {
     $row = mysqli_fetch_array($result);
-    if (is_array($row)) {
-      if (password_verify($password, $row['password'])) {
-        $json = '{
-          "success": true,
-          "status": 200,
-          "error": false
-        }';
-        echo json_encode($json);
-      } else {
-        $json = '{
-          "success": false,
-          "status": 400,
-          "error": "Invalid email or password!"
-        }';
-        echo json_encode($json);
-      }
+    if (password_verify($password, $row['password'])) {
+      // Todo: Create JSON Web Token
+      $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
+      $payload = json_encode(['email' => $email, 'password' => $password, 'name'=> $row['name']]);
+      $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+      $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
+      $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, 'Test@123', true);
+      $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+      $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+
+      $json = ["success" => true, "status" => 200, "error" => false, "token" => $jwt];
+      echo json_encode($json);
+    } else {
+      $json = ["success" => false, "status" => 400, "error" => "Invalid email or password!"];
+      echo json_encode($json);
     }
   }
 }
